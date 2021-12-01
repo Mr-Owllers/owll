@@ -1,5 +1,17 @@
 # Change Log
 
+## v1.0.6 Dec. 1, 2021
+
+### Broke-
+
+- the whole bot
+
+### Fixed-
+
+- the whole bot by making a new repl
+
+---
+
 ## v1.0.5 Sep. 26, 2021
 
 ### Added-
