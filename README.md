@@ -6,7 +6,7 @@ you can make a bot like mine by using [replit](https://replit.com)
 
 you can use [uptimerobot](https://uptimerobot.com) to make your bot run forever
 
-click [here](https://bit.ly/aliveOwll) to add my bot on your server
+click [here](https://dsc.gg/owll) to add my bot on your server
 
 > bot's prefix is owl.
 
