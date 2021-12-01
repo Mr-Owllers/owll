@@ -1,6 +1,10 @@
 # Change Log
 
-## v1.0.6 Dec. 1, 2021
+## v1.0.5.5 Dec. 1, 2021
+
+### Migreted-
+
+- to nextcord
 
 ### Broke-
 

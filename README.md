@@ -12,7 +12,7 @@ click [here](https://bit.ly/aliveOwll) to add my bot on your server
 
 # Changlog
 
-v1.0.6 [changelog](CHANGELOG.md)
+v1.0.5.5 [changelog](CHANGELOG.md)
 
 # Authors
 
