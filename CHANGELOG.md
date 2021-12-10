@@ -1,5 +1,17 @@
 # Change Log
 
+## v1.0.5.9 Dec. 10, 2021
+
+### Fixed-
+
+- [fun.py](cogs/fun.py)
+- [idk.py](cogs/idk.py)
+
+### Added-
+
+- [dot.py](cogs/dot.py)
+- [music.py](cogs/music.py) (unfinished)
+
 ## v1.0.5.5 Dec. 1, 2021
 
 ### Migreted-

@@ -20,8 +20,8 @@ class Fun(commands.Cog):
       await ctx.send("┬─┬ ノ( ゜-゜ノ)")
 
   @commands.command(
-        aliases=["8ball"],
-        help="ask me anything"
+        name = "8ball",
+        help = "ask me anything"
   )
   async def _8ball(self, ctx, *, question):
     async with ctx.typing():

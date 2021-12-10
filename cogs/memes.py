@@ -28,17 +28,24 @@ class Memes(commands.Cog):
         all_subs.append(submission)
 
       random_sub = random.choice(all_subs)
+      all_subs.remove(random_sub)
 
       name = random_sub.title
       url = random_sub.url
-      op = reddit.config.reddit_url + submission.permalink
+      link = random_sub.permalink
+      ups = random_sub.score
+      comments = random_sub.num_comments
+      author = random_sub.author.name
 
-      em = nextcord.Embed(title = name, url = op)
+      em = nextcord.Embed(title=name,url=f"https://reddit.com{link}", color=ctx.author.color)
       em.set_image(url = url)
-      em.set_footer(text=f"posted in r/{subred} | requested by {ctx.author.name}")
+      em.set_footer(text=f"posted in r/{subred} | posted by {author} | {ups} upvotes | {comments} comments | requested by {ctx.author.name}")
 
       if submission.over_18:
-        await ctx.send("the post is nsfw")
+        if not ctx.channel.is_nsfw():
+          await ctx.send("the post is nsfw")
+        else:
+          await ctx.send(embed = em)
       else:
         await ctx.send(embed = em)
     

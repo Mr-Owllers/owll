@@ -1,11 +1,14 @@
 import nextcord
 import json
 import os
+import datetime, time
 from webserver import keep_alive
 from nextcord.ext import commands
 
 help_command = commands.DefaultHelpCommand(no_category="Other Commands")
 
+intents = nextcord.Intents.default()
+intents.members = True
 
 def get_prefix(client, message):
     with open("prefix.json", "r") as file:
@@ -18,9 +21,15 @@ def get_prefix(client, message):
         prefix = "owl."  # Prefix defaults to this if none is set for the server
     return prefix
 
-client = commands.AutoShardedBot(shard_count=11,command_prefix=get_prefix, help_command=help_command)
+client = commands.AutoShardedBot(
+  shard_count = 11,
+  command_prefix = get_prefix,
+  help_command = help_command,
+  intents = intents
+)
 
 owners = [759850502661472321, 225685670788726784]
+start_time = time.time()
 
 
 @client.event
@@ -113,6 +122,22 @@ async def bot_in_o(ctx):
         if ctx.message.author.id not in owners:
             return
         await ctx.send("\n".join(guild.name for guild in client.guilds))
+
+@client.command(help="see the bot uptime", aliases=["up", "uptimebot", "botuptime", "uptimerobot"])
+async def uptime(ctx):
+  async with ctx.typing():
+    current_time = time.time()
+    difference = int(round(current_time - start_time))
+    text = str(datetime.timedelta(seconds=difference))
+    embed = nextcord.Embed(title="Uptime", colour=ctx.message.author.top_role.colour)
+    embed.add_field(name="hazy view", value=text)
+    embed.add_field(name="detailed view", value="click [here](https://stats.uptimerobot.com/MKAjKH2k8q/788949943)")
+    embed.set_footer(text="Note- The hazy view restarts when the bot get restarted")
+    try:
+        await ctx.send(embed=embed)
+    except nextcord.HTTPException:
+        await ctx.send(f"Current uptime\nhazy view: {text}\ndetailed view: https://stats.uptimerobot.com/MKAjKH2k8q/788949943")
+
 
 
 #Error Handler by MustafaTheCoder

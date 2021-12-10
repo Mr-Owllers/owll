@@ -12,7 +12,7 @@ click [here](https://dsc.gg/owll) to add my bot on your server
 
 # Changlog
 
-v1.0.5.5 [changelog](CHANGELOG.md)
+v1.0.5.9 [changelog](CHANGELOG.md)
 
 # Authors
 
