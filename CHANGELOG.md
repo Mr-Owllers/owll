@@ -6,6 +6,7 @@
 
 - [fun.py](cogs/fun.py)
 - [idk.py](cogs/idk.py)
+- [memes.py](cogs/memes.py)
 
 ### Added-
 
