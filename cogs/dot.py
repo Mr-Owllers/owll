@@ -4,7 +4,7 @@ icon = "https://cdn.discordapp.com/avatars/875328150165413918/4929f1614bfb400508
 author = "Owll"
 footer = "luv ya!"
 
-class Dot(commands.Cog):
+class Dot(commands.Cog, description="dootle ville (https://discord.gg/mdghWS8Smt)"):
   def __init__(self, client):
     self.client = client
 
@@ -53,6 +53,21 @@ class Dot(commands.Cog):
         message = f"No users with prefix \"{prefix}\" found"
 
         await ctx.send(message)
+
+  @commands.has_permissions(manage_nicknames=True)
+  @commands.command()
+  async def undot(self, ctx):
+    async with ctx.typing():
+
+      for member in ctx.guild.members:
+        nick = member.name
+        
+        try:
+          await member.edit(nick = nick)
+        except:
+          pass
+          
+      await ctx.send(f"unprefixed everyone")
 
   @commands.command(
     help = "prefix everyone in the server",

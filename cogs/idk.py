@@ -8,7 +8,7 @@ footer = "luv ya!"
 hug = ["https://c.tenor.com/bFZKN-tlQP4AAAAC/love-you-my-best-friend.gif", "https://c.tenor.com/KlkE8vt8gOIAAAAM/love-is-the-answer-to-everything-hug.gif", "https://c.tenor.com/OkpKo5iPu-8AAAAM/huge-hug.gif", "https://c.tenor.com/BW8ZMOHHrgMAAAAM/friends-joey-tribbiani.gif", "https://c.tenor.com/ut3cq1GezaoAAAAM/hug-hugs.gif", "https://media1.tenor.com/images/8ac5ada8524d767b77d3d54239773e48/tenor.gif?itemid=16334628", "https://c.tenor.com/0gz0aKX9vcQAAAAC/owl-hug-sweet.gif"]
 import random
 
-class general(commands.Cog):
+class general(commands.Cog, name="Other", description="idk"):
     def __init__(self, client):
         self.client = client
 

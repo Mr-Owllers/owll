@@ -1,73 +1,31 @@
-import nextcord
-import json
-import os
-import datetime, time
-from webserver import keep_alive
+import nextcord, json, os
 from nextcord.ext import commands
+from dotenv import load_dotenv
 
-help_command = commands.DefaultHelpCommand(no_category="Other Commands")
+load_dotenv()
+
+# from pretty_help import DefaultMenu, PrettyHelp
+
+# menu = DefaultMenu(page_left=":up_vote:869793180718100500", page_right=":down_vote:869793180625801266", remove=":no:869793180151873607")
+
+help_command = commands.DefaultHelpCommand(no_category="General")
+
+# help_command = PrettyHelp(menu=menu, no_category="General")
 
 intents = nextcord.Intents.default()
 intents.members = True
 
-def get_prefix(client, message):
-    with open("prefix.json", "r") as file:
-        prefixes = json.load(file)
+client = commands.Bot(command_prefix="owl.", intents=intents, help_command=help_command)
 
-    guild_id = str(message.guild.id)
-    if guild_id in prefixes:
-        prefix = prefixes[guild_id]
-    else:
-        prefix = "owl."  # Prefix defaults to this if none is set for the server
-    return prefix
-
-client = commands.AutoShardedBot(
-  shard_count = 11,
-  command_prefix = get_prefix,
-  help_command = help_command,
-  intents = intents
-)
-
-owners = [759850502661472321, 225685670788726784]
-start_time = time.time()
-
+owners = json.loads(open("owners.json", "r").read())
 
 @client.event
 async def on_ready():
     print("owll is alive!")
     await client.change_presence(
-          status=nextcord.Status.online,
-          activity=nextcord.Game(f"eating mice | 11 shards | in {len(client.guilds)} servers | owl.help"))
-
-
-@client.command(help="change the prefix", aliases=["pre", "setprefix", "prfx"])
-@commands.has_permissions(administrator=True)
-async def prefix(ctx, *args):
-    async with ctx.typing():
-        if len(args) < 1:
-            await ctx.send("No prefix specified!")
-            return
-
-        prefix = args[0]
-
-        if len(prefix) > 6:
-            await ctx.send(
-                "Prefix has more characters than the character limit! (6)")
-            return
-
-        with open("prefix.json", "r") as file:
-            prefixes = json.load(file)
-
-        prefixes[str(ctx.guild.id)] = prefix
-
-        with open("prefix.json", "w") as file:
-            file.write(json.dumps(prefixes, indent=4))
-
-        await ctx.send(f"Prefix set to {prefix}")
-        new_nickname = f"[{prefix}] owll"
-        await ctx.guild.get_member(client.user.id).edit(nick=new_nickname)
-        await ctx.send(
-            f"Changed nickname to {new_nickname}")
+        status=nextcord.Status.online,
+        activity=nextcord.Game("in development, do not use | owl.help")
+    )
 
 @client.command(hidden=True)
 async def load(ctx, extension):
@@ -113,32 +71,24 @@ async def ping(ctx):
 @client.command(help="see how many servers the bot is in")
 async def bot_in(ctx):
     async with ctx.typing():
-        await ctx.send(f"I'm in {len(client.guilds)} servers")
+        guild_amount = 0
+      
+        async for _ in client.fetch_guilds(): guild_amount += 1
+        
+        await ctx.send(f"I'm in {guild_amount} servers")
 
 
 @client.command(hidden=True)
 async def bot_in_o(ctx):
-    async with ctx.typing():
-        if ctx.message.author.id not in owners:
-            return
-        await ctx.send("\n".join(guild.name for guild in client.guilds))
-
-@client.command(help="see the bot uptime", aliases=["up", "uptimebot", "botuptime", "uptimerobot"])
-async def uptime(ctx):
   async with ctx.typing():
-    current_time = time.time()
-    difference = int(round(current_time - start_time))
-    text = str(datetime.timedelta(seconds=difference))
-    embed = nextcord.Embed(title="Uptime", colour=ctx.message.author.top_role.colour)
-    embed.add_field(name="hazy view", value=text)
-    embed.add_field(name="detailed view", value="click [here](https://stats.uptimerobot.com/MKAjKH2k8q/788949943)")
-    embed.set_footer(text="Note- The hazy view restarts when the bot get restarted")
-    try:
-        await ctx.send(embed=embed)
-    except nextcord.HTTPException:
-        await ctx.send(f"Current uptime\nhazy view: {text}\ndetailed view: https://stats.uptimerobot.com/MKAjKH2k8q/788949943")
+    if ctx.message.author.id not in owners: return
 
-
+    names = []
+    guild_id = []
+    async for guild in client.fetch_guilds(): names.append(guild.name)
+    async for guild in client.fetch_guilds(): guild_id.append(guild.id)
+    
+    await ctx.send("\n".join(names) + " " + "\n".join(guild_id))
 
 #Error Handler by MustafaTheCoder
 @client.event  #Making an event for out error handler.
@@ -185,7 +135,6 @@ async def on_command_error(
         em17.add_field(name = "__Invocation error__", value = str(error))
         await ctx.send(embed = em17)
 
-keep_alive()
 TOKEN = os.getenv("DISCORD_TOKEN")
 
 client.run(TOKEN)

@@ -1,6 +1,7 @@
 import praw
 import os
 import nextcord
+#from replit import db
 
 SECRET = os.environ['SECRET']
 
@@ -11,7 +12,7 @@ reddit = praw.Reddit(client_id= ID, client_secret= SECRET, user_agent= "owllAPI"
 import random
 from nextcord.ext import commands
 
-class Memes(commands.Cog):
+class Memes(commands.Cog, description="MEMES!"):
   
   def __init__(self, client):
     self.client=client  
@@ -22,9 +23,9 @@ class Memes(commands.Cog):
       sub = reddit.subreddit(subred)
       all_subs = []
 
-      top = sub.top(limit = 50)
+      hot = sub.hot(limit = 50)
 
-      for submission in top:
+      for submission in hot:
         all_subs.append(submission)
 
       random_sub = random.choice(all_subs)
@@ -48,7 +49,13 @@ class Memes(commands.Cog):
           await ctx.send(embed = em)
       else:
         await ctx.send(embed = em)
-    
+
+  # @commands.command(help = "sends a post from a specific sub every random hours")
+  # @commands.has_permissions(administrator=True)
+  # async def setup_reddit(self, ctx, sub="memes", chan="reddit"):
+  #   await ctx.send("setup completed!")
+  #   server = ctx.guild.id
+  #   db[server] = [sub, chan]
 
 
 def setup(client):

@@ -1,7 +1,7 @@
 import nextcord
 from nextcord.ext import commands
 
-class Admin(commands.Cog):
+class Admin(commands.Cog, description="admin commands"):
   def __init__(self, client):
     self.client = client
 

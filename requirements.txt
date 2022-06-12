@@ -1,0 +1,4 @@
+aiohttp==3.8.1
+nextcord==2.0.0b3
+praw==7.6.0
+python-dotenv==0.20.0

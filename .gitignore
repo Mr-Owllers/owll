@@ -1,0 +1,13 @@
+not-used/
+prefixes.json
+balances.json
+owners.json
+database.db
+cogs/__pycache_/
+__pycache__/
+cogs/__pycache_/
+.env
+.vscode/
+*.db
+db/
+requirment.txt

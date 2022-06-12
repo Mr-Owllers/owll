@@ -2,7 +2,7 @@ import random
 import nextcord
 from nextcord.ext import commands
 
-class Fun(commands.Cog):
+class Fun(commands.Cog, description="just some fun commands"):
   
   def __init__(self, client):
     self.client=client
