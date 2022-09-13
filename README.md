@@ -1,3 +1,8 @@
+> <h3><b>⚠️ Warning!</b></h3>
+> i archived this repo since i've "restarted" the
+> development. also i switch servers
+
+
 # owll
 
 hi! this is my first bot that i made
